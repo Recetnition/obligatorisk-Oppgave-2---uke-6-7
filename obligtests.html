@@ -19,7 +19,7 @@
 
         }
 
-        QUnit.test("Test 1 - Choose bar", function (assert) {
+        QUnit.test("Test 1 - Select a bar", function (assert) {
             chosenBar = 3;
             const selectedBar = 2;
             selectBar(selectedBar);
@@ -30,7 +30,7 @@
         });
     
       
-        QUnit.test("Test 2 - Delete a bar", function (assert) {
+        QUnit.test("Test 2 - Deleting a bar", function (assert) {
             const numberOfColumns = numbers.length;
             chosenBar = 1;
             deleteBar();
@@ -40,7 +40,7 @@
             assert.equal(actual, expected);
         });
       
-        QUnit.test("Test 3 - Change a bar", function (assert) {
+        QUnit.test("Test 3 - Change a bars value", function (assert) {
             chosenBar = 1;
             inputValue = 9;
             changeBar();
@@ -50,7 +50,7 @@
             assert.equal(actual, expected);
         });
       
-        QUnit.test("Test 4 - Add a bar", function (assert) {
+        QUnit.test("Test 4 - Adding an additional bar", function (assert) {
           const numberOfColumns = numbers.length;
           inputValue = 3;
           addBar();
