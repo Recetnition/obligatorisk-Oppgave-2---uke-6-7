@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oblig Oppgave 2</title>
+    <style>
+        body {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+</div>
+<script src="controller.js"></script>
+<script>
+    // hjelpevariable for bÃ¥de view og controller
+    var contentDiv = document.getElementById('content');
+
+    // model
+    let numbers = [7, 3, 1, 5, 8];
+    let chosenBar = 'ingen'; // Variabel for hvilken stolpe som er valgt
+    let inputValue; // Variabel for hva som er skrevet i input-feltet
+    let barFeedback = '';
+    
+
+    // view
+    show();
+    function show() {
+        let defaultBtns = isNaN(chosenBar) == false ? '':'disabled';
+        let svgInnerHtml = '';
+        for (let i = 0; i < numbers.length; i++) {
+            let barNo = i + 1
+            let borderOrNot = 'none';
+            if (barNo == chosenBar) {
+                borderOrNot = 'black'
+            }
+            
+            svgInnerHtml += createBar(numbers[i], i + 1, borderOrNot);
+        }
+        contentDiv.innerHTML = `
+            <svg id="chart" width="1000" viewBox="0 0 150 60">
+                ${svgInnerHtml}
+            </svg><br/>
+            Chosen bar: <i>${chosenBar}</i>
+            <br />
+            ${barFeedback}
+            Verdi:
+            <input type="number" min="1" max="10" oninput="inputValue = this.value" />
+            </br>
+            <button onclick="addBar()">Add an additional bar</button>
+            <button ${defaultBtns} onclick="changeBar()">Change chosen bar</button>
+            <button ${defaultBtns} onclick="deleteBar()">Delete chosen bar</button>
+    
+            
+            `;
+    }
+
+    function createBar(number, barNo, borderOrNot) {
+        const width = 8;
+        const spacing = 2;
+        let x = (barNo - 1) * (width + spacing);
+        let height = number * 5;
+        let y = 60 - height;
+        let color = calcColor(1, 10, number);
+        return `<rect stroke='${borderOrNot}' onclick="selectBar(${barNo})" width="${width}" height="${height}"
+                            x="${x}" y="${y}" fill="${color}"></rect>`;
+    }
+
+    function calcColor(min, max, val) {
+        var minHue = 240, maxHue = 0;
+        var curPercent = (val - min) / (max - min);
+        var colString = "hsl(" + ((curPercent * (maxHue - minHue)) + minHue) + ",100%,50%)";
+        return colString;
+    }
+
+    // controller
+  
+    </script>
+</body>
+</html>

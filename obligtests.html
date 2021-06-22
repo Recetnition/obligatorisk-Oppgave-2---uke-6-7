@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.15.0.css">
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.15.0.js"></script>
+  <script src="controller.js"></script>
+  <script>
+        // Dummy model
+        let numbers = [7, 3, 1, 5, 8];
+        let chosenBar = 'ingen'; // Variabel for hvilken stolpe som er valgt
+        let inputValue; // Variabel for hva som er skrevet i input-feltet
+        let barFeedback = '';
+        
+        // Dummy View
+        function show() {
+
+        }
+
+        QUnit.test("Test 1 - Choose bar", function (assert) {
+            chosenBar = 3;
+            const selectedBar = 2;
+            selectBar(selectedBar);
+            
+            let actual = chosenBar;
+            let expected = selectedBar;
+            assert.equal(actual, expected);
+        });
+    
+      
+        QUnit.test("Test 2 - Delete a bar", function (assert) {
+            const numberOfColumns = numbers.length;
+            chosenBar = 1;
+            deleteBar();
+
+            let actual = numbers.length;
+            let expected = numberOfColumns-1;
+            assert.equal(actual, expected);
+        });
+      
+        QUnit.test("Test 3 - Change a bar", function (assert) {
+            chosenBar = 1;
+            inputValue = 9;
+            changeBar();
+            
+            let actual = numbers[chosenBar-1];
+            let expected = inputValue;
+            assert.equal(actual, expected);
+        });
+      
+        QUnit.test("Test 4 - Add a bar", function (assert) {
+          const numberOfColumns = numbers.length;
+          inputValue = 3;
+          addBar();
+            
+            
+          let actual = numbers.length;
+          let expected = numberOfColumns+1;
+          assert.equal(actual, expected);
+        });
+
+        QUnit.test("Test 5 - Add a bar - Assert nothing is added when input is invalid", function (assert) {
+          const numberOfColumns = numbers.length;
+          inputValue = 33;
+          addBar();
+            
+          
+          let actual = numbers.length;
+          let expected = numberOfColumns;
+          assert.equal(actual, expected);
+        });
+      
+       
+  </script>
+</body>
+</html>
